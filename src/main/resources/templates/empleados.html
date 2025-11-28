@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de empleados</title>
+    <link rel="stylesheet" th:href="@{estilos.css}">
+</head>
+<body>
+<header><h1>Empleados</h1></header>
+<main>
+    <div class="contenido-ppal">
+        <table th:if="${listaEmpleados.size() > 0}" class="empleados-table">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>DNI</th>
+                <th>Sexo</th>
+                <th>Años</th>
+                <th>Categoría</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="emp : ${listaEmpleados}">
+                    <td th:text="${emp.nombre}">Nombre</td>
+                    <td th:text="${emp.dni}">DNI</td>
+                    <td th:text="${emp.sexo}">Sexo</td>
+                    <td th:text="${emp.anyos}">Años</td>
+                    <td th:text="${emp.categoria}">Categoría</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 th:unless="${listaEmpleados.size() > 0}">
+            No se han encontrado empleados.
+        </h2>
+    </div>
+</main>
+</body>
+</html>

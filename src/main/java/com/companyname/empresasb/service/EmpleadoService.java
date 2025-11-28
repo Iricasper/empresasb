@@ -20,6 +20,7 @@ public class EmpleadoService {
     @Autowired
     private EmpleadoRepository empleadoRepository;
 
+    @Autowired
     private NominaRepository nominaRepository;
 
     public List<Empleado> findAll() {
