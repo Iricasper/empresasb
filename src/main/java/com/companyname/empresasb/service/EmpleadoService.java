@@ -27,15 +27,15 @@ public class EmpleadoService {
         return empleadoRepository.findAll();
     }
 
-    public List<Empleado> buscarPorCampo(String campo, String valor) {
+    public List<Empleado> buscarEmpleadosPorCampo(String campo, String valor) {
         if (valor == null || valor.isEmpty()) return List.of();
 
-        return switch (campo.toLowerCase()) {
-            case "dni" -> empleadoRepository.findByDniIgnoreCase(valor);
-            case "nombre" -> empleadoRepository.findByNombreIgnoreCase(valor);
+        return switch (campo) {
+            case "dni" -> empleadoRepository.findByDniContainsIgnoreCase(valor);
+            case "nombre" -> empleadoRepository.findByNombreContainsIgnoreCase(valor);
             case "sexo" -> {
-                char s = valor.charAt(0);
-                yield empleadoRepository.findBySexoIgnoreCase(s);
+                char s = valor.toUpperCase().charAt(0);
+                yield empleadoRepository.findBySexo(s);
             }
             case "categoria" -> {
                 int cat = Integer.parseInt(valor);
@@ -51,7 +51,7 @@ public class EmpleadoService {
 
     @Transactional
     public boolean editarEmpleado(Empleado empleado) {
-        List<Empleado> empleadoEdit = empleadoRepository.findByDniIgnoreCase(empleado.getDni());
+        List<Empleado> empleadoEdit = empleadoRepository.findByDniContainsIgnoreCase(empleado.getDni());
         if (empleadoEdit.isEmpty()) return false;
 
         Empleado e = empleadoEdit.get(0);
@@ -72,7 +72,7 @@ public class EmpleadoService {
     }
 
     public Map<String, Object> obtenerNominaPorDni(String dni){
-        List<Empleado> empleados = empleadoRepository.findByDniIgnoreCase(dni);
+        List<Empleado> empleados = empleadoRepository.findByDniContainsIgnoreCase(dni);
         if (empleados.isEmpty()) return null;
 
         Empleado e = empleados.getFirst();

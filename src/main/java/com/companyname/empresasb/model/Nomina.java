@@ -31,6 +31,7 @@ public class Nomina {
 
     public Nomina() {}
 
+    @Transient
     public double sueldo(Empleado e) {
         return SUELDO_BASE[e.getCategoria() - 1] + (5000 * e.getAnyos());
     }
