@@ -23,7 +23,8 @@
             <label for="valor">Valor:</label>
             <input type="text" id="valor" name="valor" required placeholder="Introduce el valor a buscar"
                    pattern="^[^\s]+(\s+[^\s]+)*$\g"
-                   oninvalid="setCustomValidity('Comprueba que no haya espacios al inicio o al final.')"/>
+                   oninvalid="setCustomValidity('Comprueba que no haya espacios al inicio o al final.')"
+                   oninput="setCustomValidity('')"/>
             <input type="submit" value="Buscar"/>
         </form>
         <h3>

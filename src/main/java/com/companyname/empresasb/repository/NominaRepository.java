@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface NominaRepository extends JpaRepository<Nomina,Integer> {
-    Optional<Nomina> findByEmpleadoDniIgnoreCase(String dni);
+    Optional<Nomina> findByEmpleadoDni(String dni);
 }

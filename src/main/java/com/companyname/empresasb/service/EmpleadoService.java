@@ -61,7 +61,7 @@ public class EmpleadoService {
         e.setAnyos(empleado.getAnyos());
         empleadoRepository.save(e);
 
-        Nomina nomina = nominaRepository.findByEmpleadoDniIgnoreCase(e.getDni())
+        Nomina nomina = nominaRepository.findByEmpleadoDni(e.getDni())
                 .orElse(new Nomina());
         nomina.setEmpleado(e);
         nomina.setSueldo(nomina.sueldo(e));
@@ -72,18 +72,17 @@ public class EmpleadoService {
     }
 
     public Map<String, Object> obtenerNominaPorDni(String dni){
-        List<Empleado> empleados = empleadoRepository.findByDniContainsIgnoreCase(dni);
+        List<Empleado> empleados = empleadoRepository.findByDniIgnoreCase(dni);
         if (empleados.isEmpty()) return null;
 
         Empleado e = empleados.getFirst();
-        Optional<Nomina> nominaOptional = nominaRepository.findByEmpleadoDniIgnoreCase(e.getDni());
+        Optional<Nomina> nominaOptional = nominaRepository.findByEmpleadoDni(e.getDni());
 
         Map<String, Object> data = new HashMap<>();
         data.put("nombre", e.getNombre());
         data.put("dni", e.getDni());
         data.put("sueldo", nominaOptional.map(Nomina::getSueldo).orElse(0.0));
         data.put("sueldo_calculado", new Nomina().sueldo(e));
-        System.err.println(data);
         return data;
     }
 

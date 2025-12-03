@@ -51,9 +51,9 @@ public class EmpleadoController {
     public String buscarEmpleadoPorDni(
             Model model, @RequestParam String dni) {
         Map<String, Object> empleadoBuscado = (empleadoService.obtenerNominaPorDni(dni));
-        System.err.println(empleadoBuscado);
+        model.addAttribute("formularioEnviado", true);
         model.addAllAttributes(empleadoBuscado);
-        return "nomina";
+        return "buscarSalario";
     }
 
 
