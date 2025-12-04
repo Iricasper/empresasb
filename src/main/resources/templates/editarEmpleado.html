@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar empleado</title>
+    <link th:href="@{/estilos.css}" rel="stylesheet"/>
+</head>
+<body>
+<header>
+    <h1>Formulario de edición</h1>
+</header>
+<main>
+    <div class="contenido-ppal">
+        <form class="formEditar" th:if="${empleado}" th:action="@{/empleados/editar/{dni}}" method="POST">
+            <div class="form-section">
+                <label for="dni">DNI: </label>
+                <input type="text" id="dni" name="dni" th:value="${empleado.dni}" required
+                       pattern="^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$"
+                       oninvalid="setCustomValidity('Formato: 8 números seguidos de una letra válida (12345678B).')"
+                       oninput="setCustomValidity('')"
+                />
+            </div>
+            <div class="form-section">
+                <label for="nombre">Nombre: </label>
+                <input type="text" id="nombre" name="nombre" th:value="${empleado.nombre}" required
+                       pattern="^[^\s]+(\s+[^\s]+)*$"
+                       oninvalid="setCustomValidity('Comprueba que no haya espacios al inicio o al final.')"
+                       oninput="setCustomValidity('')"
+                />
+            </div>
+            <div class="form-section">
+                <label for="sexo">Sexo: </label>
+                <select id="sexo" name="sexo" required>
+                    <option value="M" th:selected="${empleado.sexo == 'M'.charAt(0)}">Masculino</option>
+                    <option value="F" th:selected="${empleado.sexo == 'F'.charAt(0)}">Femenino</option>
+                </select>
+            </div>
+            <div class="form-section">
+                <label for="anyos">Años: </label>
+                <input type="number" id="anyos" name="anyos" min="0" th:value="${empleado.anyos}" required>
+            </div>
+            <div class="form-section">
+                <label for="categoria">Categoría: </label>
+                <input type="number" id="categoria" name="categoria" min="1" max="10" th:value="${empleado.categoria}"
+                       required>
+            </div>
+            <div class="form-section">
+                <input type="submit" value="Guardar cambios"/>
+            </div>
+        </form>
+        <h2 th:unless="${empleado}">Error: No se ha podido encontrar al empleado</h2>
+        <h2 th:if="${isEmpleadoEditado == true}">Empleado actualizado correctamente</h2>
+        <h2 th:if="${isEmpleadoEditado == false}">Error: No se ha podido actualizar el empleado</h2>
+        <h3><a th:href="@{/empleados/buscar}">Volver</a></h3>
+    </div>
+</main>
+</body>
+</html>

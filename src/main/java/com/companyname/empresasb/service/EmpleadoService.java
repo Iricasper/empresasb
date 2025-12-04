@@ -50,11 +50,11 @@ public class EmpleadoService {
     }
 
     @Transactional
-    public boolean editarEmpleado(Empleado empleado) {
+    public Empleado editarEmpleado(Empleado empleado) {
         List<Empleado> empleadoEdit = empleadoRepository.findByDniContainsIgnoreCase(empleado.getDni());
-        if (empleadoEdit.isEmpty()) return false;
+        if (empleadoEdit.isEmpty()) return null;
 
-        Empleado e = empleadoEdit.get(0);
+        Empleado e = empleadoEdit.getFirst();
         e.setNombre(empleado.getNombre());
         e.setSexo(empleado.getSexo());
         e.setCategoria(empleado.getCategoria());
@@ -68,7 +68,7 @@ public class EmpleadoService {
         nomina.setFechaCalculo(LocalDate.now());
         nominaRepository.save(nomina);
 
-        return true;
+        return e;
     }
 
     public Map<String, Object> obtenerNominaPorDni(String dni){

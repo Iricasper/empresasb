@@ -17,6 +17,7 @@
                 <th>Sexo</th>
                 <th>Años</th>
                 <th>Categoría</th>
+                <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
@@ -26,6 +27,7 @@
                 <td th:text="${emp.sexo}">Sexo</td>
                 <td th:text="${emp.anyos}">Años</td>
                 <td th:text="${emp.categoria}">Categoría</td>
+                <td><a th:href="@{editar/{dni}(dni=${emp.dni})}">Editar</a></td>
             </tr>
             </tbody>
         </table>

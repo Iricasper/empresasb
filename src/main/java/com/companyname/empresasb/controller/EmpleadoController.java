@@ -5,10 +5,7 @@ import com.companyname.empresasb.service.EmpleadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -56,5 +53,24 @@ public class EmpleadoController {
         return "buscarSalario";
     }
 
+    // Editar empleados
+    @GetMapping("editar/{dni}")
+    public String mostrarFormularioEditarEmpleado(Model model, @PathVariable String dni) {
+        Empleado emp = empleadoService.buscarEmpleadosPorCampo("dni", dni).getFirst();
+        model.addAttribute("empleado", emp);
+        return "editarEmpleado";
+    }
 
+    @PostMapping("editar/{dni}")
+    public String editarEmpleado(Model model, @ModelAttribute Empleado emp) {
+        try {
+            Empleado empMod = empleadoService.editarEmpleado(emp);
+            model.addAttribute("isEmpleadoEditado", true);
+            model.addAttribute("empleado", empMod);
+        } catch (Exception e) {
+            model.addAttribute("isEmpleadoEditado", false);
+            model.addAttribute("empleado", emp);
+        }
+        return "editarEmpleado";
+    }
 }

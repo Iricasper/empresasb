@@ -9,3 +9,12 @@ body {
 table, th, td {
      border: 1px solid black;
 }
+
+.formEditar {
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.form-section{
+    margin: 1em 0.5em;
+}
