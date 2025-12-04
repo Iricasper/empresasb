@@ -47,13 +47,13 @@ public class EmpleadoController {
     @PostMapping("nomina")
     public String buscarEmpleadoPorDni(
             Model model, @RequestParam String dni) {
-        Map<String, Object> empleadoBuscado = (empleadoService.obtenerNominaPorDni(dni));
+        Map<String, Object> empleadoBuscado = empleadoService.obtenerNominaPorDni(dni);
         model.addAttribute("formularioEnviado", true);
         model.addAllAttributes(empleadoBuscado);
         return "buscarSalario";
     }
 
-    // Editar empleados
+    // Editar empleado
     @GetMapping("editar/{dni}")
     public String mostrarFormularioEditarEmpleado(Model model, @PathVariable String dni) {
         Empleado emp = empleadoService.buscarEmpleadosPorCampo("dni", dni).getFirst();

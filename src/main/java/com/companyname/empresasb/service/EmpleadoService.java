@@ -71,7 +71,7 @@ public class EmpleadoService {
         return e;
     }
 
-    public Map<String, Object> obtenerNominaPorDni(String dni){
+    public Map<String, Object> obtenerNominaPorDni(String dni) {
         List<Empleado> empleados = empleadoRepository.findByDniIgnoreCase(dni);
         if (empleados.isEmpty()) return null;
 
